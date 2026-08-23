@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaMart — Tech that actually works</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #003366;
+    --teal: #00a896;
+    --teal-light: #00c4b0;
+    --lime: #c8f53d;
+    --white: #ffffff;
+    --off: #f7f8fc;
+    --text: #0d0d1a;
+    --muted: #6b7280;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--teal); }
+
+  nav ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    align-items: center;
+  }
+
+  nav ul a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  nav ul a:hover { color: var(--navy); }
+
+  .nav-btn {
+    background: var(--navy) !important;
+    color: var(--white) !important;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-weight: 600 !important;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    min-height: 88vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,245,61,0.12);
+    border: 1px solid rgba(200,245,61,0.3);
+    color: var(--lime);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+
+  .hero-pill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 .accent {
+    color: var(--teal-light);
+    display: block;
+  }
+
+  .hero h1 .lime { color: var(--lime); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-lime {
+    background: var(--lime);
+    color: var(--navy);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 15px;
+    text-decoration: none;
+    transition: transform 0.15s;
+  }
+
+  .btn-lime:hover { transform: scale(1.03); }
+
+  .btn-ghost {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+  }
+
+  .btn-ghost:hover { color: var(--white); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    position: relative;
+  }
+
+  .hero-product-showcase {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .product-hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+  }
+
+  .product-hero-emoji {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .product-hero-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .product-hero-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+  }
+
+  .product-hero-price {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--lime);
+    letter-spacing: -1px;
+  }
+
+  .floating-badge {
+    position: absolute;
+    background: var(--lime);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 8px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .badge-1 { top: -16px; right: -16px; }
+  .badge-2 { bottom: -16px; left: -16px; }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -1px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0,168,150,0.08);
+    pointer-events: none;
+  }
+
+  /* MARQUEE */
+  .marquee-bar {
+    background: var(--teal);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-inner {
+    display: inline-flex;
+    gap: 48px;
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-item {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .marquee-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--navy);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+
+  /* PRODUCTS */
+  .products {
+    padding: 96px 40px;
+    background: var(--off);
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 44px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+
+  .products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .see-all {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid var(--teal);
+    border-radius: 100px;
+    transition: all 0.15s;
+  }
+
+  .see-all:hover {
+    background: var(--teal);
+    color: var(--white);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .product-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,51,102,0.12);
+  }
+
+  .product-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .product-img {
+    background: var(--off);
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    position: relative;
+  }
+
+  .product-card.featured .product-img {
+    height: 100%;
+    font-size: 72px;
+  }
+
+  .product-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--lime);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .product-body {
+    padding: 20px;
+  }
+
+  .product-card.featured .product-body {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .product-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .product-card.featured .product-name {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .product-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .product-card.featured .product-desc {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .price {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+  }
+
+  .product-card.featured .price { font-size: 32px; }
+
+  .add-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    line-height: 1;
+  }
+
+  .add-btn:hover { background: var(--teal); }
+
+  .product-card.featured .add-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    border-radius: 100px;
+    width: auto;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* NOVA SECTION */
+  .nova-section {
+    padding: 0 40px 96px;
+    background: var(--off);
+  }
+
+  .nova-inner {
+    background: var(--navy);
+    border-radius: 24px;
+    padding: 80px 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1120px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nova-bg {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(0,168,150,0.06);
+    right: -100px;
+    top: -100px;
+    pointer-events: none;
+  }
+
+  .nova-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 16px;
+  }
+
+  .nova-inner h2 {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .nova-inner h2 span { color: var(--lime); }
+
+  .nova-inner p {
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .nova-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 100px;
+  }
+
+  .nova-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nova-widget-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nova-avatar-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .nova-avatar-ring::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,168,150,0.3);
+  }
+
+  .nova-widget-text {
+    text-align: center;
+  }
+
+  .nova-widget-text strong {
+    display: block;
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .nova-widget-text span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* RETURNS */
+  .returns-bar {
+    background: var(--lime);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+  }
+
+  .returns-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .returns-icon {
+    font-size: 24px;
+  }
+
+  .returns-item strong {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--navy);
+    display: block;
+  }
+
+  .returns-item span {
+    font-size: 12px;
+    color: rgba(0,51,102,0.6);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 64px 40px 32px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-logo {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+
+  .footer-logo span { color: var(--teal-light); }
+
+  .footer-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+    max-width: 240px;
+  }
+
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col li { margin-bottom: 12px; }
+
+  .footer-col a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .footer-col a:hover { color: var(--teal-light); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Nova<span>Mart</span></a>
+  <ul>
+    <li><a href="#">Electronics</a></li>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Deals</a></li>
+    <li><a href="#">Orders</a></li>
+    <li><a href="#nova" class="nav-btn">Talk to Nova</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-circle" style="width:600px;height:600px;top:-200px;right:-100px;"></div>
+  <div class="hero-left">
+    <div class="hero-pill">New arrivals just dropped</div>
+    <h1>
+      Tech that<br>
+      <span class="accent">actually</span>
+      <span class="lime">works.</span>
+    </h1>
+    <p class="hero-sub">Premium electronics and home goods. Free delivery over £50, 30-day returns, and a voice assistant who actually picks up.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-lime">Shop now</a>
+      <a href="#nova" class="btn-ghost">Talk to Nova →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-product-showcase">
+      <div class="floating-badge badge-1">🔥 Best seller</div>
+      <div class="product-hero-card">
+        <span class="product-hero-emoji">🎧</span>
+        <div class="product-hero-name">Nova Headphones X1</div>
+        <div class="product-hero-desc">ANC · 30hr battery · USB-C</div>
+        <div class="product-hero-price">£149</div>
+      </div>
+      <div class="floating-badge badge-2">✓ In stock</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">10K+</div>
+        <div class="stat-label">Happy customers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30</div>
+        <div class="stat-label">Day returns</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Average rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span class="marquee-item">Free delivery over £50 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">30-day no-quibble returns <span class="marquee-dot"></span></span>
+    <span class="marquee-item">12-month warranty <span class="marquee-dot"></span></span>
+    <span class="marquee-item">24/7 voice support <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Express delivery £7.99 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Free delivery over £50 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">30-day no-quibble returns <span class="marquee-dot"></span></span>
+    <span class="marquee-item">12-month warranty <span class="marquee-dot"></span></span>
+    <span class="marquee-item">24/7 voice support <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Express delivery £7.99 <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<section class="products" id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-eyebrow">Products</div>
+      <div class="section-title">Best sellers.</div>
+    </div>
+    <a href="#" class="see-all">See all products</a>
+  </div>
+  <div class="product-grid">
+    <div class="product-card featured">
+      <div class="product-img">
+        🎧
+        <div class="product-tag">Best seller</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Nova Headphones X1</div>
+        <div class="product-desc">Over-ear wireless with active noise cancellation, 30-hour battery life, and USB-C fast charging. The one everyone's talking about.</div>
+        <div class="product-row">
+          <div class="price">£149</div>
+          <button class="add-btn">Add to bag</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        🔊
+        <div class="product-tag">New</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Smart Speaker Mini</div>
+        <div class="product-desc">360° sound, 10W, voice assistant ready.</div>
+        <div class="product-row">
+          <div class="price">£79</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🤖</div>
+      <div class="product-body">
+        <div class="product-name">Robot Vacuum R1</div>
+        <div class="product-desc">LiDAR mapping, 120-min runtime, app control.</div>
+        <div class="product-row">
+          <div class="price">£329</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        💨
+        <div class="product-tag">Top rated</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Air Purifier 300</div>
+        <div class="product-desc">HEPA + carbon filter, covers 300 sq ft.</div>
+        <div class="product-row">
+          <div class="price">£179</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🎵</div>
+      <div class="product-body">
+        <div class="product-name">Soundbar S3</div>
+        <div class="product-desc">3.0 channel, HDMI ARC, Dolby Audio.</div>
+        <div class="product-row">
+          <div class="price">£249</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🔋</div>
+      <div class="product-body">
+        <div class="product-name">Portable Charger 20K</div>
+        <div class="product-desc">20,000mAh, 18W fast charge, dual USB.</div>
+        <div class="product-row">
+          <div class="price">£49</div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="returns-bar">
+  <div class="returns-item">
+    <span class="returns-icon">🚚</span>
+    <div>
+      <strong>Free delivery</strong>
+      <span>On orders over £50</span>
+    </div>
+  </div>
+  <div class="returns-item">
+    <span class="returns-icon">↩️</span>
+    <div>
+      <strong>30-day returns</strong>
+      <span>No questions asked</span>
+    </div>
+  </div>
+  <div class="returns-item">
+    <span class="returns-icon">🛡️</span>
+    <div>
+      <strong>12-month warranty</strong>
+      <span>All Nova products</span>
+    </div>
+  </div>
+  <div class="returns-item">
+    <span class="returns-icon">💬</span>
+    <div>
+      <strong>Voice support</strong>
+      <span>Talk to Nova anytime</span>
+    </div>
+  </div>
+</div>
+
+<section class="nova-section" id="nova">
+  <div class="nova-inner">
+    <div class="nova-bg"></div>
+    <div>
+      <div class="nova-eyebrow">Meet your assistant</div>
+      <h2>Nova doesn't<br>put you <span>on hold.</span></h2>
+      <p>Track orders, kick off returns, get product advice, or update your shipping address — all by voice, in seconds.</p>
+      <div class="nova-chips">
+        <span class="chip">📦 Track my order</span>
+        <span class="chip">↩️ Start a return</span>
+        <span class="chip">🏠 Change address</span>
+        <span class="chip">🎧 Product advice</span>
+        <span class="chip">👤 Talk to a human</span>
+      </div>
+    </div>
+    <div class="nova-right">
+      <div class="nova-widget-card">
+        <div class="nova-avatar-ring">🤖</div>
+        <div class="nova-widget-text">
+          <strong>Nova is ready</strong>
+          <span>Click below to start a conversation</span>
+        </div>
+        <elevenlabs-convai agent-id="agent_3101m0qgv4cefazbmt9td4kgfqfx"></elevenlabs-convai>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Nova<span>Mart</span></div>
+      <p class="footer-tagline">Tech that actually works. Delivered fast, returned easy, supported always.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Audio</a></li>
+        <li><a href="#">Home goods</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Deals</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Track order</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Warranty</a></li>
+        <li><a href="#">Talk to Nova</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 NovaMart. All rights reserved.</p>
+    <p>Support: Mon–Fri 8am–8pm · Sat 9am–5pm</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+</body>
+</html>
